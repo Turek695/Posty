@@ -1,5 +1,5 @@
 <template>
-	<tr>
+	<tr class="post_item">
 		<td>{{ id }}.</td>
 		<td>
 			{{ title }}
@@ -13,12 +13,25 @@
 <script>
 export default {
 	name: "PostItem",
-	props: ["id", "title", "body"],
+	props: {
+		id: {
+			type: String,
+			default: "",
+		},
+		title: {
+			type: String,
+			default: "",
+		},
+		body: {
+			type: String,
+			default: "",
+		},
+	},
 };
 </script>
 
 <style scoped>
-tr > td {
+.post_item td {
 	border: 1px solid black;
 }
 </style>
