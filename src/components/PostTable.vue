@@ -12,7 +12,6 @@
 		<input
 			v-model="searchPhrase"
 			type="search"
-			name=""
 			id="search"
 			placeholder="wyszukaj frazę"
 		/>
@@ -27,7 +26,7 @@
 			</thead>
 			<tbody>
 				<PostItem
-					v-for="(post, index) in this.$store.state.posts"
+					v-for="(post, index) in postsDisplayed"
 					:id="post.id"
 					:title="post.title"
 					:body="post.body"
@@ -45,7 +44,6 @@ import PostItem from "./PostItem.vue";
 
 export default {
 	name: "PostTable",
-	props: ["posts"],
 	components: {
 		PostItem,
 	},
@@ -55,11 +53,18 @@ export default {
 		};
 	},
 	computed: {
-		// searchResult() {
-		// 	if (this.$store.state.)
-		// },
-		// ...mapState(["posts"]),
-		// ...mapGetters(["posts"]),
+		postsDisplayed() {
+			if (!this.searchPhrase) {
+				return this.posts;
+			} else {
+				return this.posts.filter(
+					(post) =>
+						post.title.includes(this.searchPhrase.toLowerCase()) ||
+						post.body.includes(this.searchPhrase.toLowerCase())
+				);
+			}
+		},
+		...mapState(["posts"]),
 	},
 };
 </script>
