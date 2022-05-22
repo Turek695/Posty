@@ -66,10 +66,17 @@ export default {
 			currentPage: 1,
 		};
 	},
+	watch: {
+		postsPerPage: function (val, oldVal) {
+			this.currentPage = 1;
+		},
+	},
 	computed: {
 		maxPages() {
-			if (this.posts) {
+			if (this.posts && !this.searchPhrase) {
 				return Math.ceil(this.posts.length / this.postsPerPage);
+			} else {
+				return 1;
 			}
 		},
 		postsDisplayed() {
@@ -77,9 +84,9 @@ export default {
 				if (!this.searchPhrase) {
 					let startIndex = this.postsPerPage * (this.currentPage - 1);
 					let endIndex = startIndex + this.postsPerPage;
-					console.log(this.posts, startIndex, endIndex);
 					return this.posts.slice(startIndex, endIndex);
 				} else {
+					this.currentPage = 1;
 					return this.posts.filter(
 						(post) =>
 							post.title.includes(

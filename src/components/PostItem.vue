@@ -15,8 +15,7 @@ export default {
 	name: "PostItem",
 	props: {
 		id: {
-			type: String,
-			default: "",
+			type: Number,
 		},
 		title: {
 			type: String,
