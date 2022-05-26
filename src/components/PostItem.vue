@@ -7,10 +7,20 @@
 		<td>
 			{{ body }}
 		</td>
-		<td>DEL MOD</td>
+		<td>
+			<button @click="showDelPop = true">Usuń</button>
+			<PostPopup
+				:postId="postId"
+				v-if="showDelPop"
+				@close="showDelPop = false"
+				text="Czy na pewno chcesz usunąć post?"
+			/>
+		</td>
 	</tr>
 </template>
 <script>
+import PostPopup from "./PostPopup.vue";
+
 export default {
 	name: "PostItem",
 	props: {
@@ -25,6 +35,15 @@ export default {
 			type: String,
 			default: "",
 		},
+	},
+	data() {
+		return {
+			showDelPop: false,
+			postId: this.id,
+		};
+	},
+	components: {
+		PostPopup,
 	},
 };
 </script>
