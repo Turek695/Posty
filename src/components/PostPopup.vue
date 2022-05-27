@@ -1,10 +1,21 @@
 <template>
 	<div class="post_popup">
 		<div class="popup__window">
-			<button @click="$emit('close')">X</button>
-			{{ text }}
-			<button @click="postDelete(postId)">Tak</button>
-			<button @click="$emit('close')">Nie</button>
+			<div class="popup__section popup__bar">
+				<button class="popup__close" @click="$emit('close')">X</button>
+			</div>
+			<div class="popup__section">
+				{{ text }}
+			</div>
+			<div class="popup__section">
+				<button
+					class="popup__btn"
+					v-for="(button, index) in buttons"
+					@click="$emit(button)"
+				>
+					{{ button }}
+				</button>
+			</div>
 		</div>
 	</div>
 </template>
@@ -15,20 +26,16 @@ export default {
 	props: {
 		text: {
 			type: String,
-			default: "Czy usunąć?",
+			default: "loerm ipsum",
 		},
 		postId: {
 			type: Number,
 		},
-		// buttons: {
-		// 	type: Object,
-		// 	default: {},
-		// },
-	},
-	methods: {
-		postDelete(postId) {
-			this.$emit("close");
-			this.$store.dispatch("postDelete", { postId });
+		buttons: {
+			type: Object,
+			default() {
+				return { ok: "ok" };
+			},
 		},
 	},
 };
@@ -50,6 +57,23 @@ export default {
 }
 .popup__window {
 	background-color: white;
-	display: grid;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: space-between;
+	width: 50%;
+	height: 30%;
+}
+.popup__section {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
+.popup__bar {
+	justify-content: flex-end;
+	background-color: gray;
+}
+.popup__btn {
+	margin: 1em;
 }
 </style>

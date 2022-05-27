@@ -10,10 +10,13 @@
 		<td>
 			<button @click="showDelPop = true">Usuń</button>
 			<PostPopup
-				:postId="postId"
 				v-if="showDelPop"
-				@close="showDelPop = false"
+				:postId="postId"
+				:buttons="{ delete: 'Usuń', cancel: 'Anuluj' }"
 				text="Czy na pewno chcesz usunąć post?"
+				@close="showDelPop = false"
+				@Anuluj="showDelPop = false"
+				@Usuń="postDelete(postId)"
 			/>
 		</td>
 	</tr>
@@ -44,6 +47,12 @@ export default {
 	},
 	components: {
 		PostPopup,
+	},
+	methods: {
+		postDelete(postId) {
+			this.$emit("close");
+			this.$store.dispatch("postDelete", { postId });
+		},
 	},
 };
 </script>

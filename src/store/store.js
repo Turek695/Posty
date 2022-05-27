@@ -13,7 +13,6 @@ export default new Vuex.Store({
             let index = state.posts.findIndex(
                 element => element.id === payload.postId
             );
-            console.log(index);
             state.posts.splice(index, 1);
         }
     },
