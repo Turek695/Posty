@@ -11,7 +11,7 @@
 				<button
 					class="popup__btn"
 					v-for="(button, index) in buttons"
-					@click="$emit(button)"
+					@click="$emit('buttonClicked', index, postId)"
 				>
 					{{ button }}
 				</button>

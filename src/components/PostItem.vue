@@ -13,10 +13,9 @@
 				v-if="showDelPop"
 				:postId="postId"
 				:buttons="{ delete: 'Usuń', cancel: 'Anuluj' }"
-				text="Czy na pewno chcesz usunąć post?"
+				:text="'Czy na pewno chcesz usunąć post ' + postId + '?'"
 				@close="showDelPop = false"
-				@Anuluj="showDelPop = false"
-				@Usuń="postDelete(postId)"
+				@buttonClicked="clicked"
 			/>
 		</td>
 	</tr>
@@ -49,9 +48,11 @@ export default {
 		PostPopup,
 	},
 	methods: {
-		postDelete(postId) {
-			this.$emit("close");
-			this.$store.dispatch("postDelete", { postId });
+		clicked(button, postId) {
+			if (button == "delete") {
+				this.$store.dispatch("postDelete", { postId }); // czemu to nie działa?
+			}
+			this.showDelPop = false;
 		},
 	},
 };
